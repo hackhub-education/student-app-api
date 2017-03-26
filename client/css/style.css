@@ -1,0 +1,18 @@
+nav ul li {
+  font-family: Helvetica;
+  display: inline-block; }
+
+nav div img {
+  width: 100%; }
+
+h2 {
+  color: #00FFFF;
+  font-size: 50px; }
+
+a, .link {
+  color: #00FFFF;
+  text-decoration: none;
+  font-weight: 600; }
+
+.link {
+  color: #4effb1; }

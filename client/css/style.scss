@@ -1,0 +1,20 @@
+@import "navbar.scss";
+
+$primary-color: #00FFFF;
+$secondary-color: #4effb1;
+
+h2 {
+  color: $primary-color;
+  font-size: 50px;
+}
+
+a {
+  color: $primary-color;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.link {
+  @extend a;
+  color: $secondary-color;
+}
