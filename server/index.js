@@ -1,7 +1,10 @@
-var express = require('express');
+var app = require('express')();
 var mongoose = require('mongoose');
 var cors = require('cors');
 var bodyParser = require('body-parser');
+var http = require('http').Server(app);
+var io = require('socket.io')(http);
+var path = require('path');
 
 mongoose.connect('mongodb://localhost/webdxd');
 
@@ -12,8 +15,6 @@ var studentSchema = {
 }
 
 var Student = mongoose.model('Students', studentSchema, 'students');
-
-var app = express();
 
 app.use(cors());
 app.use(bodyParser.json());
@@ -53,4 +54,21 @@ app.post('/delete', function(req, res) {
     })
 });
 
-app.listen(3000);
+app.get('/chat', function(req, res) {
+    res.sendFile(path.join(__dirname, '../client', 'chat.html'));
+});
+
+io.on('connection', function(socket){
+    console.log('a user connected');
+    socket.on('chat message', function(msg) {
+       console.log('message: ' + msg);
+       io.emit('response message', msg);
+    });
+    socket.on('disconnect', function() {
+       console.log('user disconnected');
+    });
+});
+
+http.listen(3000, function(){
+    console.log('listening on *:3000');
+});
