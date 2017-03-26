@@ -1,19 +1,19 @@
 [
     {
-        "firstName": "Yan",
-        "lastName": "Hong",
+        "firstname": "Yan",
+        "lastname": "Hong",
         "email": "yan@webdxd.com",
         "age": 24
     },
     {
-        "firstName": "Neo",
-        "lastName": "Wang",
+        "firstname": "Neo",
+        "lastname": "Wang",
         "email": "neo@webdxd.com",
         "age": 24
     },
     {
-        "firstName": "Leon",
-        "lastName": "Yan",
+        "firstname": "Leon",
+        "lastname": "Yan",
         "email": "leon@webdxd.com",
         "age": 27
     }

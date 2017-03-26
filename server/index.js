@@ -6,9 +6,8 @@ var bodyParser = require('body-parser');
 mongoose.connect('mongodb://localhost/webdxd');
 
 var studentSchema = {
-    firstName: String,
-    lastName: String,
-    email: String,
+    firstname: String,
+    school: String,
     age: Number
 }
 
@@ -40,6 +39,18 @@ app.post('/new', function(req, res) {
     newStudent.save(function(err, doc) {
         res.send(doc);
     });
+});
+
+app.post('/update', function(req, res) {
+    Student.update(req.body._id, req.body, function(err, doc) {
+       res.send(doc)
+    });
+});
+
+app.post('/delete', function(req, res) {
+    Student.remove({_id: req.body._id}, function(err, doc) {
+        res.send(doc)
+    })
 });
 
 app.listen(3000);

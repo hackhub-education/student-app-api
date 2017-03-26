@@ -13,6 +13,36 @@ var Student = React.createClass({
                 console.log(error)
             })
     },
+    handleSubmit: function(e) {
+        e.preventDefault();
+        axios.post('http://localhost:3000/update', this.state)
+            .then(function(response) {
+                // ReactThis.setState({
+                //     studentList: response.data
+                // })
+                console.log(response)
+            })
+            .catch(function(error) {
+                console.log(error)
+            })
+    },
+    handleChange: function(e) {
+        var studentObj = this.state
+        studentObj[e.target.name] = e.target.value
+        this.setState(studentObj)
+    },
+    handleDelete: function() {
+        var ReactThis = this
+        var studentObj = this.state
+        axios.post('http://localhost:3000/delete', this.state)
+            .then(function(response) {
+                ReactThis.props.remove(studentObj);
+                console.log(response)
+            })
+            .catch(function(error) {
+                console.log(error)
+            })
+    },
     render: function() {
         if (this.state.firstname) {
             var nameNode = (
@@ -20,6 +50,13 @@ var Student = React.createClass({
                     <h2>Name: {this.state.firstname}</h2>
                     <h2>Age: {this.state.age}</h2>
                     <h2>School: {this.state.school}</h2>
+                    <form onSubmit={this.handleSubmit}>
+                        <input type="text" name="firstname" placeholder="First Name" onChange={this.handleChange} value={this.state.firstname}/>
+                        <input type="text" name="age" placeholder="Age"  onChange={this.handleChange} value={this.state.age}/>
+                        <input type="text" name="school" placeholder="School"  onChange={this.handleChange} value={this.state.school}/>
+                        <button>Submit</button>
+                    </form>
+                    <button onClick={this.handleDelete}>Delete</button>
                 </div>
             )
         } else {
@@ -28,10 +65,54 @@ var Student = React.createClass({
         return (
             <div>
                 {nameNode}
+
                 <hr/>
             </div>
         )
     }
+})
+
+var StudentForm = React.createClass({
+
+    getInitialState: function() {
+        return {
+            firstname: "",
+            age: "",
+            school: ""
+        }
+    },
+
+    handleSubmit: function(e) {
+        e.preventDefault();
+        axios.post('http://localhost:3000/new', this.state)
+            .then(function(response) {
+                // ReactThis.setState({
+                //     studentList: response.data
+                // })
+                console.log(response)
+            })
+            .catch(function(error) {
+                console.log(error)
+            })
+    },
+
+    handleChange: function(e) {
+        var studentObj = this.state
+        studentObj[e.target.name] = e.target.value
+        this.setState(studentObj)
+    },
+
+    render: function() {
+        return (
+            <form onSubmit={this.handleSubmit}>
+                <input type="text" name="firstname" placeholder="First Name" onChange={this.handleChange}/>
+                <input type="text" name="age" placeholder="Age"  onChange={this.handleChange}/>
+                <input type="text" name="school" placeholder="School"  onChange={this.handleChange}/>
+                <button>Submit</button>
+            </form>
+        )
+    }
+
 })
 
 var StudentList = React.createClass({
@@ -39,6 +120,17 @@ var StudentList = React.createClass({
       return {
           studentList: [],
       }
+    },
+    removeFromList: function(obj) {
+        // Remove obj from student list and update state
+
+        var oldStudentList = this.state.studentList
+        var newStudentList = oldStudentList.filter(function(student) {
+            return student._id !== obj._id;
+        });
+        this.setState({
+            studentList: newStudentList
+        })
     },
     componentDidMount: function() {
         var ReactThis = this;
@@ -57,14 +149,14 @@ var StudentList = React.createClass({
     render: function() {
         var ReactThis = this;
         return (<div>
-            <h1>Student List</h1>
             {
                 this.state.studentList.map(
                     function(currentStudent) {
-                        return <Student data={currentStudent} key={currentStudent._id}/>
+                        return <Student data={currentStudent} remove={ReactThis.removeFromList} key={currentStudent._id}/>
                     }
                 )
             }
+            <StudentForm/>
         </div>)
     }
 
