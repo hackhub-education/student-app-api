@@ -16,6 +16,7 @@
 <body>
 <ul id="messages"></ul>
 <form action="">
+    <input id="n" autocomplete="off">
     <input id="m" autocomplete="off" /><button>Send</button>
 </form>
 
@@ -24,13 +25,22 @@
 <script>
     $(function () {
         var socket = io();
+        var color = '#'+Math.floor(Math.random()*16777215).toString(16);
         $('form').submit(function(){
-            socket.emit('chat message', $('#m').val());
+
+            var msgObj = {
+                name: $('#n').val(),
+                message: $('#m').val(),
+                color: color
+            };
+
+            socket.emit('chat message', msgObj);
             $('#m').val('');
             return false;
         });
         socket.on('response message', function(msg){
-            $('#messages').append($('<li>').text(msg));
+            $('#messages').append($('<li>').text(msg.name + ': ' + msg.message).css('color', msg.color));
+
         });
     });
 </script>
