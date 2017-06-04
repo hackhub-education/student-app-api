@@ -5,8 +5,9 @@ var bodyParser = require('body-parser');
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
 var path = require('path');
+config = require('./config');
 
-mongoose.connect('mongodb://localhost/webdxd');
+mongoose.connect(config.database);
 
 var studentSchema = {
     name: String,
