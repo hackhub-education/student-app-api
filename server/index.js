@@ -31,12 +31,14 @@ app.get('/student', function(req, res) {
 });
 
 app.get('/student/:id', function(req, res) {
+
     Student.findById(req.params.id, function(err, doc) {
         res.send(doc);
     });
 });
 
 app.post('/new', function(req, res) {
+    console.log(req.body)
     var newStudent = new Student(req.body);
     newStudent.save(function(err, doc) {
         res.send(doc);
@@ -44,7 +46,11 @@ app.post('/new', function(req, res) {
 });
 
 app.post('/update', function(req, res) {
-    Student.update(req.body._id, req.body, function(err, doc) {
+    Student.update({_id: req.body._id}, {$set: {
+        "name": req.body.name,
+        "age": req.body.age,
+        "school": req.body.school
+    }}, function(err, doc) {
        res.send(doc)
     });
 });
