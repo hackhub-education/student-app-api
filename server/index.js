@@ -9,7 +9,7 @@ var path = require('path');
 mongoose.connect('mongodb://localhost/webdxd');
 
 var studentSchema = {
-    firstname: String,
+    name: String,
     school: String,
     age: Number
 }
@@ -24,7 +24,7 @@ app.get('/', function(req, res) {
 });
 
 app.get('/student', function(req, res) {
-    Student.find().select('firstname age').exec(function(err, doc) {
+    Student.find().select('name').exec(function(err, doc) {
         res.send(doc);
     })
 });
@@ -69,6 +69,6 @@ io.on('connection', function(socket){
     });
 });
 
-http.listen(3000, function(){
+http.listen(process.env.PORT || 3000, function(){
     console.log('listening on *:3000');
 });
