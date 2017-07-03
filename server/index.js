@@ -31,7 +31,6 @@ app.get('/student', function(req, res) {
 });
 
 app.get('/student/:id', function(req, res) {
-
     Student.findById(req.params.id, function(err, doc) {
         res.send(doc);
     });
@@ -45,8 +44,16 @@ app.post('/new', function(req, res) {
     });
 });
 
-app.post('/update', function(req, res) {
-    Student.update({_id: req.body._id}, {$set: {
+app.post('/student', function(req, res) {
+    console.log(req.body)
+    var newStudent = new Student(req.body);
+    newStudent.save(function(err, doc) {
+        res.send(doc);
+    });
+});
+
+app.put('/student/:id', function(req, res) {
+    Student.update({_id: req.params.id}, {$set: {
         "name": req.body.name,
         "age": req.body.age,
         "school": req.body.school
@@ -55,8 +62,8 @@ app.post('/update', function(req, res) {
     });
 });
 
-app.post('/delete', function(req, res) {
-    Student.remove({_id: req.body._id}, function(err, doc) {
+app.delete('/student/:id', function(req, res) {
+    Student.remove({_id: req.params.id}, function(err, doc) {
         res.send(doc)
     })
 });
