@@ -23,7 +23,7 @@ app.use(cors());
 app.use(bodyParser.json());
 
 app.get('/', function(req, res) {
-    res.send("Welcome to WebDxD Student Project API");
+    res.sendFile(path.join(__dirname, 'views', 'api-docs.html'))
 });
 
 app.get('/student', function(req, res) {
