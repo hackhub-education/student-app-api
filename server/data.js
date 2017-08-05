@@ -1,20 +1,26 @@
 [
     {
-        "firstname": "Yan",
-        "lastname": "Hong",
+        "firstName": "Yan",
+        "lastName": "Hong",
         "email": "yan@webdxd.com",
-        "age": 24
+        "age": 24,
+        "school": "SFU",
+        "skills": ["HTML", "CSS", "JavaScript"]
     },
     {
-        "firstname": "Neo",
-        "lastname": "Wang",
+        "firstName": "Neo",
+        "lastName": "Wang",
         "email": "neo@webdxd.com",
-        "age": 24
+        "age": 24,
+        "school": "CAPU",
+        "skills": ["Marketing", "Operations", "Public Relations"]
     },
     {
-        "firstname": "Leon",
-        "lastname": "Yan",
+        "firstName": "Leon",
+        "lastName": "Yan",
         "email": "leon@webdxd.com",
-        "age": 27
+        "age": 27,
+        "school": "BCIT",
+        "skills": ["Graphics Design", "UIUX", "HTML", "CSS"]
     }
 ]

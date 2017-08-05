@@ -10,9 +10,11 @@ config = require('./config');
 mongoose.connect(config.database);
 
 var studentSchema = {
-    name: String,
+    firstName: String,
+    lastName: String,
     school: String,
-    age: Number
+    age: Number,
+    skills: [String]
 }
 
 var Student = mongoose.model('Students', studentSchema, 'students');
@@ -21,25 +23,17 @@ app.use(cors());
 app.use(bodyParser.json());
 
 app.get('/', function(req, res) {
-    res.send("Hello World!");
+    res.send("Welcome to WebDxD Student Project API");
 });
 
 app.get('/student', function(req, res) {
-    Student.find().select('name').exec(function(err, doc) {
+    Student.find().select('firstName').exec(function(err, doc) {
         res.send(doc);
     })
 });
 
 app.get('/student/:id', function(req, res) {
     Student.findById(req.params.id, function(err, doc) {
-        res.send(doc);
-    });
-});
-
-app.post('/new', function(req, res) {
-    console.log(req.body)
-    var newStudent = new Student(req.body);
-    newStudent.save(function(err, doc) {
         res.send(doc);
     });
 });

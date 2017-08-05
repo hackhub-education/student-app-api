@@ -15,7 +15,7 @@ var Student = React.createClass({
     },
     handleSubmit: function(e) {
         e.preventDefault();
-        axios.post('http://localhost:3000/update', this.state)
+        axios.put('http://localhost:3000/student/' + this.props.data._id, this.state)
             .then(function(response) {
                 // ReactThis.setState({
                 //     studentList: response.data
@@ -34,7 +34,7 @@ var Student = React.createClass({
     handleDelete: function() {
         var ReactThis = this
         var studentObj = this.state
-        axios.post('http://localhost:3000/delete', this.state)
+        axios.delete('http://localhost:3000/student' + this.props.data._id, this.state)
             .then(function(response) {
                 ReactThis.props.remove(studentObj);
                 console.log(response)
@@ -84,7 +84,7 @@ var StudentForm = React.createClass({
 
     handleSubmit: function(e) {
         e.preventDefault();
-        axios.post('http://localhost:3000/new', this.state)
+        axios.post('http://localhost:3000/student', this.state)
             .then(function(response) {
                 // ReactThis.setState({
                 //     studentList: response.data
