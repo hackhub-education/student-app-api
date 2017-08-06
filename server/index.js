@@ -14,6 +14,7 @@ var studentSchema = {
     lastName: String,
     school: String,
     age: Number,
+    email: String,
     skills: [String]
 }
 
